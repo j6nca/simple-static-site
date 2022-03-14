@@ -1,0 +1,12 @@
+@font-face { font-family: ubuntumono; src: url('UbuntuMono-Regular.ttf'); } 
+@font-face { font-family: powerline; src: url('PowerlineSymbols.otf'); }
+html {
+  background-color: #002b36;
+  color: #839496;
+  font-family: ubuntumono;
+}
+
+pl {
+  font-family: powerline;
+}
+
