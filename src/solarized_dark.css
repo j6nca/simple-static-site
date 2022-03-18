@@ -4,9 +4,48 @@ html {
   background-color: #002b36;
   color: #839496;
   font-family: ubuntumono;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  font-weight: bold;
 }
 
+/* Powerline Symbols */
 pl {
   font-family: powerline;
+  font-size: 20px;
+  color: #268bd2;
+  font-weight: normal;
 }
 
+pl.user {
+  color: #586e75;
+  background-color: #268bd2;
+  padding-top: 3px;
+  padding-bottom: 1px;
+  /* line-height: 2; */
+}
+
+.prompt {
+  color: #fdf6e3;
+  background-color: #268bd2;
+  padding-top: 5px;
+  padding-bottom: 2px;
+  padding-left: 10px;
+  padding-right: 10px; 
+}
+
+.user {
+  color: #fdf6e3;
+  background-color: #586e75;
+}
+
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  
+  border-left: 60px solid green;
+}

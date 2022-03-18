@@ -1,9 +1,9 @@
 terraform {
-  required_version = "1.1.5"
+  required_version = "1.1.7"
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      version = "~> 3.0"
+      version = "~> 4.0"
     }
   }
 
@@ -13,4 +13,8 @@ terraform {
     key    = "simple-static-site/terraform.tfstate"
     region = "us-east-1"
   }
+}
+
+provider "aws" {
+  region = "us-east-1"
 }
