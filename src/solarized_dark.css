@@ -1,5 +1,5 @@
-@font-face { font-family: ubuntumono; src: url('UbuntuMono-Regular.ttf'); } 
-@font-face { font-family: powerline; src: url('PowerlineSymbols.otf'); }
+@font-face { font-family: ubuntumono; src: url('UbuntuMono-Regular.ttf') format("truetype"); } 
+@font-face { font-family: powerline; src: url('PowerlineSymbols.woff') format("woff"); }
 html {
   background-color: #002b36;
   color: #839496;
