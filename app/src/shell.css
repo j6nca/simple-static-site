@@ -1,5 +1,4 @@
-@font-face { font-family: ubuntumono; src: url('UbuntuMono-Regular.ttf') format("truetype"); } 
-@font-face { font-family: powerline; src: url('PowerlineSymbols.woff') format("woff"); }
+@font-face { font-family: ubuntumono; src: url('./fonts/UbuntuMono-Regular.ttf') format("truetype"); } 
 html {
   background-color: #002b36;
   color: #839496;
@@ -44,13 +43,13 @@ pl.user {
 }
 */
 .bashprompt{
-  height: 100px;
-  width: 500px;
+  display: inline-block;
 }
 .promptitem{
-  float: left;
+  /* float: left; */
+  display: inline-block;
   height: 30px;
-  
+  font-family: ubuntumono;
   text-align: center;
   vertical-align: middle;
   line-height: 30px;
@@ -96,20 +95,44 @@ pl.user {
   border-left: 15px solid #859900;
 }
 
-input[type=text] {
+.userin{
+  caret-shape: block;
   padding-left: 15px;
   height: 30px;
-  width: auto;
+  width: 500px;
   line-height: 30px;
-  float:left;
-  border: none;
+  display: inline-block;
+  /* float:left; */
   background-color: #002b36;
   color: #839496;
-  /* font-weight: bold; */
+  font-weight: bold;
   font-family: ubuntumono;
   font-size: 16px;
 }
 
+.output{
+  padding-left: 15px;
+  padding-bottom: 18px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #002b36;
+  color: #839496;
+  font-family: ubuntumono;
+  font-size: 16px;
+}
+
+input[type=text] {
+  border: none;
+}
+
 input[type=text]:focus{
   outline: none;
+}
+
+ul{
+  list-style-type: none;
+}
+li{
+  padding-left: 0;
+  text-indent: 0;
 }
