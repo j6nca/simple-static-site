@@ -1,0 +1,14 @@
+{
+    "projects": [
+        {
+            "name": "project 1",
+            "date": "start",
+            "summary": "description"
+        },
+        {
+            "name": "project 2",
+            "date": "start",
+            "summary": "description"
+        }
+    ]
+}

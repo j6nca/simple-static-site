@@ -5,34 +5,42 @@ import Prompt from './components/Prompt';
 import In from './components/In';
 import {useState} from 'react'
 import React, {Component} from 'react'
-// function App() {
-//   const [state,setState]=useState([
-//     commands=[],
-//     outputs=[]
-//   ])
-//   function handleKeyDown(e){
-//     if (e.key=== 'Enter'){
-//       setState(e.target.value)
-//       commands.push(e.target.value)
-//       console.log(commands)
-//       console.log("Command Entered", e.target.value)
-//     }
-//   }
-//   var commands = [1, 2, 3, 4, 5];
-//   const listCommands = commands.map((commands) => 
-//     <li><Prompt/>{commands}</li>
-//     );
-//   return (
-//     <div className="Shell">
-//       <h1>{state}</h1>
-//       <ul>{listCommands}</ul>
-//       <Prompt/><In handleKeyDown={handleKeyDown.bind(this)}/>
-//     </div>
-//   );
-// }
-const pages = ["about", "projects", "resume", "contact"]
-const help = ["cat", "clear", "help", "ls"]
+
+import help from './data/help.json'
+
+
+import about from './data/about.json'
+import contact from './data/contact.json'
+import work from './data/work.json'
+import projects from './data/projects.json'
+import resume from './data/resume.json'
+
+
+// process json data
+const help_output = stringformatter("commands", 8) + "\t" + stringformatter("description", 23) + "\tusage" + help["commands"].map( (command) => {
+return ("\n" + stringformatter(command.command, 8) + "\t" + stringformatter(command.description, 23) + "\t" + command.usage)
+});
+const ls_output = ["about", "work", "projects", "resume", "contact"].map( (page) => {
+  return (page + "\t")
+  });
+const project_output = "projects" + projects["projects"].map( (project) => {
+  return ("\n" + project.name + "\t(" + project.date + ")\n" + project.description)
+  });
+const work_output = "For more info try 'cat resume'" + "\nwork experience" + "\nfull-time" + 
+  work["full-time"].map( (work) => {
+    return ("\n" + stringformatter(work.title, 22) + "\t" + "@" + stringformatter(work.company,37) + "\t(" + work.start_date + " - " + work.end_date + ")")
+  }) + "\n\ninternships" +
+  work["internships"].map( (work) => {
+    return ("\n" + stringformatter(work.title, 22) + "\t" + "@" + stringformatter(work.company, 37) + "\t(" + work.start_date + " - " + work.end_date + ")")
+  });
+const resume_output = "You can generate a resume here: " + resume.resume_url + "\nAlternatively, you can download the last generated resume from: " + resume.resume_url
+// const pages = ["about", "work", "projects", "resume", "contact"]
 const errorUnknownCommand = "Command not found, please enter 'help' for a list of commands"
+function stringformatter (str, l){
+  let x = l-str.length
+  return str = str + new Array(x + 1).join(' ')
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -54,17 +62,11 @@ class App extends Component {
     })
   }
   clearState(){
-    this.setState({commands: this.state.commands,
+    this.setState({commands: [...this.state.commands, ["clear",""]],
       commandCounter: this.state.commandCounter + 1,
-      commandCutOff: this.state.commandCounter,
+      commandCutOff: this.state.commandCounter + 1,
+      commandIndex: this.state.commandCounter + 1,
     })
-  }
-  checkPage(page){
-    if(pages.includes(page)){
-      return("page!")
-    }else{
-      return("page not found!")
-    }
   }
   componentDidMount() {
     this.scrollToBottom();
@@ -85,28 +87,49 @@ class App extends Component {
               this.clearState()
               break;
             case "ls":
-              this.updateState(e.target.value, pages)
+              this.updateState(e.target.value, ls_output)
               break;
             case "help":
-              this.updateState(e.target.value, help)
+              this.updateState(e.target.value, help_output)
+              console.log(help_output)
               break;
             case e.target.value.match(/^cat/)?.input:
               const pagestoread = e.target.value.split(" ").slice(1);
               let outputs = []
               pagestoread.forEach(page => {
                 console.log(page)
-                if(pages.includes(page)){
-                  outputs.push("page found!")
-                }else{
-                  outputs.push("page not found!")
+                switch(page){
+                  case "about":
+                    outputs.push(project_output);
+                    break;
+                  case "contact":
+                    outputs.push(project_output);
+                    break;
+                  case "work":
+                    outputs.push(work_output);
+                    break;
+                  case "projects":
+                    outputs.push(project_output);
+                    break;
+                  case "resume":
+                    outputs.push(resume_output);
+                    break;
+                  default:
+                    outputs.push("page not found!");
+                    console.log("unknown page:", page)
                 }
               });
             
               this.updateState(e.target.value, outputs)
               break;
+            case "resume":
+              this.updateState(e.target.value, resume_output)
+              console.log(help_output)
+              break;
+              
             default:
               this.updateState(e.target.value, errorUnknownCommand)
-              console.error("Unknown Command")
+              console.log("Unknown Command:", e.target.value)
           }
           console.log("Commands", this.state.commands)
           console.log(this.state)
@@ -124,7 +147,7 @@ class App extends Component {
         }else if (e.key==='ArrowUp' && this.state.commandIndex != 0){
           document.getElementById('textin').value = this.state.commands[this.state.commandIndex-1][0];
         }
-        else if (e.key==='ArrowDown' && this.state.commandIndex != this.state.commandCounter){
+        else if (e.key==='ArrowDown' && this.state.commandIndex < this.state.commandCounter){
           document.getElementById('textin').value = this.state.commands[this.state.commandIndex+1][0];
         }
       }
@@ -139,7 +162,7 @@ class App extends Component {
               {command[0]}<br/>
             </div>
             <div className="output">
-              {command[1]}<br/>
+              <pre>{command[1]}</pre>
             </div>
             </div>
             ))}

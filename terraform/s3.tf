@@ -71,14 +71,14 @@ resource "aws_s3_bucket_website_configuration" "config" {
 }
 
 resource "aws_s3_object" "src" {
-  for_each = fileset("../src/", "**")
+  for_each = fileset("../app/build/", "**")
   bucket = aws_s3_bucket.site.bucket
   key = each.value
-  source = "../src/${each.value}"
-  content_type = "text/html"
+  source = "../app/build/${each.value}"
+  content_type = length(regexall(".*css", each.value)) > 0 ? "text/css" : "text/html"
 
   # The filemd5() function is available in Terraform 0.11.12 and later
   # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:
   # etag = "${md5(file("path/to/file"))}"
-  etag = filemd5("../src/${each.value}")
+  etag = filemd5("../app/build/${each.value}")
 }

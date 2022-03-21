@@ -109,16 +109,20 @@ pl.user {
   font-family: ubuntumono;
   font-size: 16px;
 }
-
+pre{
+  font-family: ubuntumono;
+}
 .output{
   padding-left: 15px;
-  padding-bottom: 18px;
+  padding-bottom: 10px;
   height: 30px;
   line-height: 30px;
   background-color: #002b36;
   color: #839496;
   font-family: ubuntumono;
   font-size: 16px;
+  /* white-space: pre-line; */
+  display: inline;
 }
 
 input[type=text] {

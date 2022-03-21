@@ -1,0 +1,48 @@
+{
+    "full-time": [
+        {
+            "company": "Roadmunk (acquired by Tempo Software)",
+            "title": "DevOps Developer",
+            "start_date": "202201",
+            "end_date": "present",
+            "summary": "description"
+        },
+        {
+            "company": "TimePlay (StreamSix)",
+            "title": "Junior DevOps",
+            "start_date": "202104",
+            "end_date": "202112",
+            "summary": "description"
+        }
+    ],
+    "internships": [
+        {
+            "company": "Cryptonumerics",
+            "title": "DevOps Cloud Developer",
+            "start_date": "201909",
+            "end_date": "201912",
+            "summary": "description"
+        },
+        {
+            "company": "VIA Rail Canada",
+            "title": "Innovation Engineer",
+            "start_date": "201901",
+            "end_date": "201904",
+            "summary": "description"
+        },
+        {
+            "company": "TD Bank",
+            "title": "Devops Engineer",
+            "start_date": "201709",
+            "end_date": "201808",
+            "summary": "description"
+        },
+        {
+            "company": "Rave Inc.",
+            "title": "Backend Developer",
+            "start_date": "201701",
+            "end_date": "201704",
+            "summary": "description"
+        }
+    ]
+}

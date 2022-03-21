@@ -1,0 +1,24 @@
+{
+    "commands":[
+        {
+            "command": "cat",
+            "description": "output page content",
+            "usage": "cat $PAGE_NAME i.e 'cat about'"
+        },
+        {
+            "command": "clear",
+            "description": "clear previous outputs",
+            "usage": "clear"
+        },
+        {
+            "command": "help",
+            "description": "list available commands",
+            "usage": "help"
+        },
+        {
+            "command": "ls",
+            "description": "list pages available",
+            "usage": "ls"
+        }
+    ]
+}
