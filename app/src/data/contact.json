@@ -1,5 +1,20 @@
 {
-    "email": "jngbot@gmail.com",
-    "linkedin": "linkedin.com/in/jngbot",
-    "spotify": "spotifyurl"
+    "socials":[
+        {
+            "name": "email",
+            "value": "mailto:jngbot@gmail.com"
+        },
+        {
+            "name": "linkedin",
+            "value": "https://linkedin.com/in/jngbot"
+        },
+        {
+            "name": "github",
+            "value": "https://github.com/jngbot"
+        },
+        {
+            "name": "spotify",
+            "value": "https://open.spotify.com/user/ddojo?si=818d069041994398"
+        }
+    ]
 }

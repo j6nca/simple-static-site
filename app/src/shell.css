@@ -1,4 +1,6 @@
 @font-face { font-family: ubuntumono; src: url('./fonts/UbuntuMono-Regular.ttf') format("truetype"); } 
+@font-face { font-family: powerlinesymbols; src: url('./fonts/PowerlineSymbols.woff') format("woff"); } 
+
 html {
   background-color: #002b36;
   color: #839496;
@@ -7,10 +9,18 @@ html {
   margin-right: 0px;
   padding-left: 0px;
   padding-right: 0px;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 16px;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+.branchchar{
+  font-family: powerlinesymbols;
+  font-size: 16px;
+  display: inline-block;
+}
 /* Powerline Symbols */
 /*
 pl {
@@ -99,15 +109,18 @@ pl.user {
   caret-shape: block;
   padding-left: 15px;
   height: 30px;
-  width: 500px;
+  width: 300px;
   line-height: 30px;
   display: inline-block;
   /* float:left; */
   background-color: #002b36;
   color: #839496;
-  font-weight: bold;
+  font-weight: 600;
   font-family: ubuntumono;
   font-size: 16px;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 pre{
   font-family: ubuntumono;
@@ -139,4 +152,20 @@ ul{
 li{
   padding-left: 0;
   text-indent: 0;
+}
+
+a{
+  color: #839496;
+  text-decoration: none;
+}
+a:visited, a:active {
+  color: #839496;
+}
+a:hover {
+  color: white;
+}
+
+#contact li{
+  display: inline;
+  padding-right: 25px;
 }

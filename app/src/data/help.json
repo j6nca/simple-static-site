@@ -19,6 +19,11 @@
             "command": "ls",
             "description": "list pages available",
             "usage": "ls"
+        },
+        {
+            "command": "whoami",
+            "description": "blurb about myself",
+            "usage": "whoami"
         }
     ]
 }

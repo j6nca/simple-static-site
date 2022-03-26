@@ -10,7 +10,7 @@ class Prompt extends React.Component {
       <div className="promptitem">
         <div className="arrow-right dir"></div>
       </div>
-      <div className="promptitem branch">{'\uE0A0'} master</div>
+      <div className="promptitem branch"><div className='branchchar'>{'\uE0A0'}</div> master</div>
       <div className="promptitem">
         <div className="arrow-right branch"></div>
       </div>

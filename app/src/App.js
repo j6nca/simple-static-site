@@ -14,28 +14,34 @@ import contact from './data/contact.json'
 import work from './data/work.json'
 import projects from './data/projects.json'
 import resume from './data/resume.json'
+import whoami from './data/whoami.json'
+
 
 
 // process json data
-const help_output = stringformatter("commands", 8) + "\t" + stringformatter("description", 23) + "\tusage" + help["commands"].map( (command) => {
+const help_output = stringformatter("Commands", 8) + "\t" + stringformatter("Description", 23) + "\tUsage" + help["commands"].map( (command) => {
 return ("\n" + stringformatter(command.command, 8) + "\t" + stringformatter(command.description, 23) + "\t" + command.usage)
 });
 const ls_output = ["about", "work", "projects", "resume", "contact"].map( (page) => {
   return (page + "\t")
   });
-const project_output = "projects" + projects["projects"].map( (project) => {
+const contact_output = "Contact Me," + contact["socials"].map( (item) => {
+  return (item.name + "\t" + item.value)
+});
+const project_output = "Projects" + projects["projects"].map( (project) => {
   return ("\n" + project.name + "\t(" + project.date + ")\n" + project.description)
   });
-const work_output = "For more info try 'cat resume'" + "\nwork experience" + "\nfull-time" + 
+const work_output = "For more info try 'cat resume'" + "\nWork Experience" + "\nFull-Time" + 
   work["full-time"].map( (work) => {
     return ("\n" + stringformatter(work.title, 22) + "\t" + "@" + stringformatter(work.company,37) + "\t(" + work.start_date + " - " + work.end_date + ")")
-  }) + "\n\ninternships" +
+  }) + "\n\nInternships" +
   work["internships"].map( (work) => {
     return ("\n" + stringformatter(work.title, 22) + "\t" + "@" + stringformatter(work.company, 37) + "\t(" + work.start_date + " - " + work.end_date + ")")
   });
 const resume_output = "You can generate a resume here: " + resume.resume_url + "\nAlternatively, you can download the last generated resume from: " + resume.resume_url
+const whoami_output = whoami["blurb"]
 // const pages = ["about", "work", "projects", "resume", "contact"]
-const errorUnknownCommand = "Command not found, please enter 'help' for a list of commands"
+const errorUnknownCommand = "command not found, please enter 'help' for valid commands"
 function stringformatter (str, l){
   let x = l-str.length
   return str = str + new Array(x + 1).join(' ')
@@ -79,10 +85,41 @@ class App extends Component {
   scrollToBottom() {
     this.el.scrollIntoView({ behavior: 'smooth' });
   }
+  focusIn(){
+    document.getElementById("textin").focus();
+  }
+  formatOutput(entry){
+    if(entry[0].toLowerCase()  == "cat contact"){
+    //   entry[1].map((line, i) => {                      
+    //     // Return the element. Also pass key     
+    //     if(line.includes(".com")){
+    //       return <a href={line}>test</a>
+    //     }else{
+    //       return line
+    //     } 
+    //  })
+    let entries = entry[1][0].split(",")
+    console.log(entries)
+    return <ul id="contact">{ entries.map((line, i) => { 
+      let parts = line.split("\t")     
+      console.log(line)
+      console.log(typeof line)
+        // Return the element. Also pass key     
+      if(line.includes(".com")){
+        console.log("url detected")
+        return <li><a href={parts[1]} target="_blank">{parts[0]}</a></li>
+      }else{
+        return line + "\n"
+      } 
+     })}</ul>
+    }else{
+      return entry[1]
+    }
+  }
    handleKeyDown(e){
         if (e.key=== 'Enter'){
           console.log("Command Entered", e.target.value)
-          switch(e.target.value) {
+          switch(e.target.value.toLowerCase()) {
             case "clear":
               this.clearState()
               break;
@@ -93,9 +130,15 @@ class App extends Component {
               this.updateState(e.target.value, help_output)
               console.log(help_output)
               break;
+            case "whoami":
+              this.updateState(e.target.value, whoami_output)
+              break;
             case e.target.value.match(/^cat/)?.input:
               const pagestoread = e.target.value.split(" ").slice(1);
               let outputs = []
+              if ( pagestoread.length == 0 ){
+                outputs.push("Page not found, use 'ls' for a list of available pages");
+              }
               pagestoread.forEach(page => {
                 console.log(page)
                 switch(page){
@@ -103,7 +146,7 @@ class App extends Component {
                     outputs.push(project_output);
                     break;
                   case "contact":
-                    outputs.push(project_output);
+                    outputs.push(contact_output);
                     break;
                   case "work":
                     outputs.push(work_output);
@@ -115,20 +158,16 @@ class App extends Component {
                     outputs.push(resume_output);
                     break;
                   default:
-                    outputs.push("page not found!");
+                    outputs.push("Page not found, use 'ls' for a list of available pages");
                     console.log("unknown page:", page)
                 }
               });
             
               this.updateState(e.target.value, outputs)
               break;
-            case "resume":
-              this.updateState(e.target.value, resume_output)
-              console.log(help_output)
-              break;
               
             default:
-              this.updateState(e.target.value, errorUnknownCommand)
+              this.updateState(e.target.value, e.target.value + ": " + errorUnknownCommand)
               console.log("Unknown Command:", e.target.value)
           }
           console.log("Commands", this.state.commands)
@@ -146,9 +185,21 @@ class App extends Component {
           
         }else if (e.key==='ArrowUp' && this.state.commandIndex != 0){
           document.getElementById('textin').value = this.state.commands[this.state.commandIndex-1][0];
+          this.setState({
+            commands: this.state.commands,
+            commandCounter: this.state.commandCounter,
+            commandCutOff: this.state.commandCutOff,
+            commandIndex: this.state.commandIndex - 1,
+          })
         }
         else if (e.key==='ArrowDown' && this.state.commandIndex < this.state.commandCounter){
           document.getElementById('textin').value = this.state.commands[this.state.commandIndex+1][0];
+          this.setState({
+            commands: this.state.commands,
+            commandCounter: this.state.commandCounter,
+            commandCutOff: this.state.commandCutOff,
+            commandIndex: this.state.commandIndex + 1,
+          })
         }
       }
       render() {
@@ -162,12 +213,12 @@ class App extends Component {
               {command[0]}<br/>
             </div>
             <div className="output">
-              <pre>{command[1]}</pre>
+              <pre>{this.formatOutput(command)}</pre>
             </div>
             </div>
             ))}
           </div>
-          <Prompt/><In handleKeyDown={this.handleKeyDown.bind(this)}/>
+          <Prompt/><In focusIn={this.focusIn.bind(this)} handleKeyDown={this.handleKeyDown.bind(this)}/>
           <div ref={el => { this.el = el; }} />
         </div>);
 };
